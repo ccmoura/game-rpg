@@ -23,6 +23,7 @@ public class Room
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
     private HashMap<String, Personagem> characters;
+    private HashMap<String, Item> itens;
 
     /**
      * Create a room described "description". Initially, it has
@@ -37,6 +38,14 @@ public class Room
         return characters;
     }
 
+    public void addItem(Item i){
+        itens.put(i.getName(), i);
+    }
+    
+    public Item removeItem(String nome){
+        return itens.remove(nome);
+    }
+    
     public void removeCharacter(Personagem p){
         characters.remove(p);
     }

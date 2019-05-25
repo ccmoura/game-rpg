@@ -185,7 +185,6 @@ public class Game
 
     private void attack(Command command) {
         if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
             System.out.println("Attack who?");
             return;
         }
@@ -198,5 +197,23 @@ public class Game
                 currentRoom.removeCharacter(vilao);
             }
         }
+    }
+    
+    private void pick(Command command){
+        if(!command.hasSecondWord()) {
+            System.out.println("Pick what?");
+            return;
+        }
+        String what = command.getSecondWord();
+        currentRoom.removeItem(what);
+    }
+    
+    private void drop(Command command){
+        if(!command.hasSecondWord()) {
+            System.out.println("Drop what?");
+            return;
+        }
+        String what = command.getSecondWord();
+        currentRoom.addItem(heroi.remover(what));
     }
 }
