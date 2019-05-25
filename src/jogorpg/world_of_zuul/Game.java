@@ -21,7 +21,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-    private Personagem heroi;
+    private Heroi heroi;
         
     /**
      * Create the game and initialise its internal map.
@@ -118,6 +118,8 @@ public class Game
         }
         else if (commandWord == CommandWord.QUIT) {
             wantToQuit = quit(command);
+        }else if (commandWord == CommandWord.ATTACK) {
+            attack(command);
         }
         // else command not recognised.
         return wantToQuit;
@@ -178,6 +180,23 @@ public class Game
         }
         else {
             return true;  // signal that we want to quit
+        }
+    }
+
+    private void attack(Command command) {
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know where to go...
+            System.out.println("Attack who?");
+            return;
+        }
+        
+        String who = command.getSecondWord();
+        Vilao vilao = (Vilao) currentRoom.getCharacters().get(who);
+        if(vilao != null){
+            heroi.fight(vilao);
+            if(vilao.getEnergy() == 0){
+                currentRoom.removeCharacter(vilao);
+            }
         }
     }
 }

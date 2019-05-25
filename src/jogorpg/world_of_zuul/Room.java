@@ -22,6 +22,7 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
+    private HashMap<String, Personagem> characters;
 
     /**
      * Create a room described "description". Initially, it has
@@ -29,10 +30,21 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) 
+    
+    
+    public HashMap<String, Personagem> getCharacters() 
     {
+        return characters;
+    }
+
+    public void removeCharacter(Personagem p){
+        characters.remove(p);
+    }
+    
+    public Room(String description) {
         this.description = description;
         exits = new HashMap<String, Room>();
+        characters = new HashMap<String, Personagem>();
     }
 
     /**
@@ -62,7 +74,7 @@ public class Room
      */
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        return "You are " + description + ".\n" + getExitString() + "\n" + getCharactersString();
     }
 
     /**
@@ -79,7 +91,15 @@ public class Room
         }
         return returnString;
     }
-
+    
+    private String getCharactersString(){
+        String returnString = "Characters: ";
+        Set<String> keys = characters.keySet();
+        for(String character : keys) {
+            returnString += " _ " + character;
+        }
+        return returnString;
+    }
     /**
      * Return the room that is reached if we go from this room in direction
      * "direction". If there is no room in that direction, return null.
