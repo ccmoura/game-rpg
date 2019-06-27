@@ -32,6 +32,9 @@ public class Room
      * @param description The room's description.
      */
     
+    public void setCharacter(String name, Personagem p){
+        characters.put(name, p);
+    }
     
     public HashMap<String, Personagem> getCharacters() 
     {
@@ -83,7 +86,7 @@ public class Room
      */
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString() + "\n" + getCharactersString();
+        return "Você está " + description + ".\n" + getExitString() + "\n" + getCharactersString();
     }
 
     /**
@@ -93,7 +96,7 @@ public class Room
      */
     private String getExitString()
     {
-        String returnString = "Exits:";
+        String returnString = "Saídas:";
         Set<String> keys = exits.keySet();
         for(String exit : keys) {
             returnString += " " + exit;
@@ -102,7 +105,7 @@ public class Room
     }
     
     private String getCharactersString(){
-        String returnString = "Characters: ";
+        String returnString = "Personagens: ";
         Set<String> keys = characters.keySet();
         for(String character : keys) {
             returnString += " _ " + character;

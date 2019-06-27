@@ -37,30 +37,85 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theatre, pub, lab, office;
+        Room alfredo, pisca, chrisao, churros, canidia, passarela, posto, beijinho, 
+                viaduto, praca, avenida, gauchao, porta;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        alfredo = new Room("na entrada da escola Alfredo Ferreira Rodrigues");
+        pisca = new Room("no campo do piscabol");
+        chrisao = new Room("na casa do Chrisão");
+        churros = new Room("no churros do Maicon");
+        canidia = new Room("no campo do Canidia");
+        passarela = new Room("na passarela");   // vazia / passagem
+        posto = new Room("no posto Sim");
+        beijinho = new Room("na casa do beijinho");
+        viaduto = new Room("Embaixo do viaduto");   // passagem
+        praca = new Room("na praça Coronel Marcelino");
+        avenida = new Room("na Avenida da Paz");
+        gauchao = new Room("no Gauchão Acessórios");
+        porta = new Room("em frente a uma porta misteriosa");
         
         // initialise room exits
-        outside.setExit("east", theatre);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        alfredo.setExit("praca", praca);
+        alfredo.setExit("viaduto", viaduto);
+        alfredo.setExit("pisca", pisca);
 
-        theatre.setExit("west", outside);
+        pisca.setExit("passarela", passarela);
+        pisca.setExit("chrisao", chrisao);
+        pisca.setExit("beijinho", beijinho);
+        pisca.setExit("alfredo", alfredo);
+        pisca.setExit("canidia", canidia);
 
-        pub.setExit("east", outside);
-
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
-
-        office.setExit("west", lab);
-
-        currentRoom = outside;  // start game outside
+        chrisao.setExit("passarela", passarela);
+        chrisao.setExit("pisca", pisca);
+        chrisao.setExit("beijinho", beijinho);
+        
+        churros.setExit("gauchao", gauchao);
+        churros.setExit("viaduto", viaduto);
+        churros.setExit("avenida", avenida);
+        churros.setExit("posto", posto);
+        
+        beijinho.setExit("chrisao", chrisao);
+        beijinho.setExit("passarela", passarela);
+        beijinho.setExit("pisca", pisca);
+        
+        passarela.setExit("beijinho", beijinho);
+        passarela.setExit("avenida", avenida);
+        passarela.setExit("gauchao", gauchao);
+        passarela.setExit("chrisao", chrisao);
+        
+        gauchao.setExit("churros", churros);
+        gauchao.setExit("porta", porta);
+        gauchao.setExit("avenida", avenida);
+        gauchao.setExit("passarela", passarela);
+        
+        viaduto.setExit("churros", churros);
+        viaduto.setExit("posto", posto);
+        viaduto.setExit("alfredo", alfredo);
+        
+        avenida.setExit("gauchao", gauchao);
+        avenida.setExit("churros", churros);
+        
+        canidia.setExit("praca", praca);
+        canidia.setExit("pisca", pisca);
+        
+        porta.setExit("gauchao", gauchao);
+        
+        praca.setExit("alfredo", praca);
+        praca.setExit("canidia", canidia);
+        
+        posto.setExit("churros", churros);
+        posto.setExit("viaduto", viaduto);
+        
+        
+        // add characters in each room
+        posto.setCharacter("Aldenei", new Vilao("Aldenei", (byte)3200));
+                
+        // add items in each room
+        
+        
+        // start game
+        currentRoom = alfredo;  
     }
 
     /**
@@ -78,7 +133,7 @@ public class Game
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Até a próxima!");
     }
 
     /**
@@ -87,9 +142,9 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type '" + CommandWord.HELP + "' if you need help.");
+        System.out.println("Bem-Vindo ao Povo Novo!");
+        System.out.println("Derrote todos os inimigos que puder.");
+        System.out.println("Digite '" + CommandWord.HELP + "' para ajuda.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
     }
@@ -106,7 +161,7 @@ public class Game
         CommandWord commandWord = command.getCommandWord();
 
         if(commandWord == CommandWord.UNKNOWN) {
-            System.out.println("I don't know what you mean...");
+            System.out.println("Comando inválido...");
             return false;
         }
 
@@ -134,10 +189,10 @@ public class Game
      */
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("Você acordou nas margens da br 392 próximo a escola Alfredo Ferreira Rodrigues");
+        System.out.println("Você não se lembra de como foi parar ai e nem conhece o local.");
         System.out.println();
-        System.out.println("Your command words are:");
+        System.out.println("Comandos:");
         parser.showCommands();
     }
 
@@ -149,7 +204,7 @@ public class Game
     {
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know where to go...
-            System.out.println("Go where?");
+            System.out.println("Onde?");
             return;
         }
 
@@ -175,7 +230,7 @@ public class Game
     private boolean quit(Command command) 
     {
         if(command.hasSecondWord()) {
-            System.out.println("Quit what?");
+            System.out.println("Comando inválido?");
             return false;
         }
         else {
@@ -185,7 +240,7 @@ public class Game
 
     private void attack(Command command) {
         if(!command.hasSecondWord()) {
-            System.out.println("Attack who?");
+            System.out.println("Atacar quem?");
             return;
         }
         
@@ -201,7 +256,7 @@ public class Game
     
     private void pick(Command command){
         if(!command.hasSecondWord()) {
-            System.out.println("Pick what?");
+            System.out.println("Pegar o que?");
             return;
         }
         String what = command.getSecondWord();
@@ -210,7 +265,7 @@ public class Game
     
     private void drop(Command command){
         if(!command.hasSecondWord()) {
-            System.out.println("Drop what?");
+            System.out.println("Soltar o que?");
             return;
         }
         String what = command.getSecondWord();
