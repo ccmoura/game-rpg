@@ -9,16 +9,15 @@ package jogorpg.world_of_zuul;
  *
  * @author chris
  */
-public class Vilao extends Personagem{
-    private int coins;
+public class Moletom extends Camisa {
+    private byte life;
     
-    public Vilao(String nome, byte energia, int coins) {
-        super(nome, energia);
-        this.coins = coins;
+    public Moletom(String name, int weight, int armor) {
+        super(name, weight, armor);
     }
-    
-    public int dropCoins(){
-        return coins;
+
+    public byte getLife() {
+        return life;
     }
     
 }

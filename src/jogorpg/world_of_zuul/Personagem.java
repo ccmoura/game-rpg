@@ -13,19 +13,28 @@ import java.util.Random;
  */
 public abstract class Personagem {
     private String name;
-    private byte energy;
+    private byte maxEnergy;
+    private byte currentEnergy;
     
     public Personagem(String nome, byte energia) {
         this.name = nome;
-        this.energy = energia;
+        this.maxEnergy = energia;
     }
 
+    public void setMaxEnergy(byte maxEnergy) {
+        this.maxEnergy = maxEnergy;
+    }
+
+    public byte getMaxEnergy() {
+        return maxEnergy;
+    }
+    
     public String getName() {
         return name;
     }
 
     public byte getEnergy() {
-        return energy;
+        return currentEnergy;
     }
      
     public byte luck(){
@@ -34,15 +43,15 @@ public abstract class Personagem {
     }
     
     public void increaseEnergy(){
-        if(energy < 10)
-            energy++;
+        if(currentEnergy < 10)
+            currentEnergy++;
     }
     
     public void decreaseEnergy(){
-        if(energy > 0){
-            energy--;
+        if(currentEnergy > 0){
+            currentEnergy--;
         } 
-        if(energy == 0){
+        if(currentEnergy == 0){
             System.out.println(name + " is dead");
         }
     }
@@ -56,7 +65,7 @@ public abstract class Personagem {
         System.out.println(
                 "#####################" + 
                 "\n# Nome: " + name +
-                "\n# Energia: " + energy + 
+                "\n# Energia: " + currentEnergy + 
                 "\n#####################\n");
     }
 }

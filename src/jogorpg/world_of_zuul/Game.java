@@ -21,7 +21,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-    private Heroi heroi;
+    private Heroi heroi = new Heroi("Anonimo", (byte)2500);
         
     /**
      * Create the game and initialise its internal map.
@@ -109,7 +109,8 @@ public class Game
         
         
         // add characters in each room
-        posto.setCharacter("Aldenei", new Vilao("Aldenei", (byte)3200));
+        posto.setCharacter("Aldenei", new Chefe("Aldenei", (byte)3200, 450));
+        posto.setCharacter("Frentista", new Vilao("Gasoline man", (byte)1005, 3000));
                 
         // add items in each room
         
@@ -142,7 +143,7 @@ public class Game
     private void printWelcome()
     {
         System.out.println();
-        System.out.println("Bem-Vindo ao Povo Novo!");
+        System.out.println("Bem-Vindo ao Povo Novo, " + heroi.getName() + "!");
         System.out.println("Derrote todos os inimigos que puder.");
         System.out.println("Digite '" + CommandWord.HELP + "' para ajuda.");
         System.out.println();

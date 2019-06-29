@@ -15,11 +15,34 @@ import java.util.Map;
 public class Heroi extends Personagem {
     private Map<String, Item> inventory;
     private int weightLimit;
+    private Wallet wallet;
     
     public Heroi(String nome, byte energia) {
         super(nome, energia);
         inventory = new HashMap<String, Item>();
         weightLimit = 30;
+        wallet = new Wallet();
+        inventory.put("Wallet", wallet);
+    }
+    
+    public void colectCoins(int moedas){
+        wallet.addCoins(moedas, weightLimit);
+    }
+    
+    public boolean testItem(Item item){ // false se item for da mesma instância
+        String[] itmSplit = item.getName().split(" ");
+        String[] invSplit;
+        for(String i : inventory.keySet()){
+            invSplit = i.split(" ");
+            if(invSplit[0].equals(itmSplit[0])){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public void dropCoins(int coins){
+        wallet.removeCoins(coins);
     }
     
     public boolean inserir(Item item){
@@ -35,19 +58,7 @@ public class Heroi extends Personagem {
     }
     
     public void fight(Vilao v){
-        byte villainLuck = v.luck();
-        byte heroLuck = this.luck();
-        
-        if(villainLuck == heroLuck){
-            this.decreaseEnergy();
-            v.decreaseEnergy();
-        } else if(villainLuck < heroLuck){
-            v.decreaseEnergy();
-            this.increaseEnergy();
-        } else{
-            v.increaseEnergy();
-            this.decreaseEnergy();
-        }
+        // implementar
     }
 
     private int pesoAtual() {

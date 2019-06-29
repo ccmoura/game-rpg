@@ -18,6 +18,10 @@ public class Item {
         this.weight = weight;
     }
 
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
     public String getName() {
         return name;
     }

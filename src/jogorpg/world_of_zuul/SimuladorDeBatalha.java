@@ -12,7 +12,7 @@ package jogorpg.world_of_zuul;
 public class SimuladorDeBatalha {
     
     public static void main(String[] args) {
-        Vilao v = new Vilao("Nemesis", (byte) 10);
+        Vilao v = new Vilao("Nemesis", (byte) 10, 800);
         Heroi h = new Heroi("Jill Valentine", (byte) 10);
         boolean end = false;
         
