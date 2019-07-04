@@ -12,16 +12,16 @@ import java.util.Map;
  * @author chris
  */
 public class Status {
-    private byte maxEnergy;
-    private byte currentEnergy;
+    private int maxEnergy;
+    private int currentEnergy;
     private boolean additionalLuck;
     private double damageMultiplier;
     private int armor;
     private int damage;
-    private double criticalChance;
+    private byte criticalChance;
     private boolean hitKillChance;
 
-    public Status(byte maxEnergy, byte currentEnergy, Map<String, Item> inventory) {
+    public Status(int maxEnergy, int currentEnergy, Map<String, Item> inventory) {
         this.maxEnergy = maxEnergy;
         this.currentEnergy = currentEnergy;
         
@@ -37,6 +37,70 @@ public class Status {
                 damageMultiplier = ((Anel) item).getDamageMultiplier();
             }
         }
+    }
+
+    public int getMaxEnergy() {
+        return maxEnergy;
+    }
+
+    public void setMaxEnergy(int maxEnergy) {
+        this.maxEnergy = maxEnergy;
+    }
+
+    public int getCurrentEnergy() {
+        return currentEnergy;
+    }
+
+    public void setCurrentEnergy(int currentEnergy) {
+        if(currentEnergy>=0) this.currentEnergy = currentEnergy;
+    }
+
+    public boolean isAdditionalLuck() {
+        return additionalLuck;
+    }
+
+    public void setAdditionalLuck(boolean additionalLuck) {
+        this.additionalLuck = additionalLuck;
+    }
+
+    public double getDamageMultiplier() {
+        return damageMultiplier;
+    }
+
+    public void setDamageMultiplier(double damageMultiplier) {
+        this.damageMultiplier = damageMultiplier;
+    }
+
+    public int getArmor() {
+        return armor;
+    }
+
+    public void setArmor(int armor) {
+        this.armor = armor;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public double getCriticalChance() {
+        return criticalChance;
+    }
+
+    public void setCriticalChance(byte criticalChance) {
+        this.criticalChance = criticalChance;
+    }
+
+    public boolean isHitKillChance() {
+        return hitKillChance;
+    }
+
+    public void setHitKillChance(boolean hitKillChance) {
+        this.hitKillChance = hitKillChance;
     }
     
     

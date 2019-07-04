@@ -7,6 +7,7 @@ package jogorpg.world_of_zuul;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  *
@@ -16,6 +17,7 @@ public class Heroi extends Personagem {
     private Map<String, Item> inventory;
     private int weightLimit;
     private Wallet wallet;
+    private Status status;
     
     public Heroi(String nome, byte energia) {
         super(nome, energia);
@@ -23,6 +25,7 @@ public class Heroi extends Personagem {
         weightLimit = 30;
         wallet = new Wallet();
         inventory.put("Wallet", wallet);
+        status = new Status(super.getMaxEnergy(), super.getEnergy(), inventory);
     }
     
     public void colectCoins(int moedas){
@@ -58,9 +61,47 @@ public class Heroi extends Personagem {
     }
     
     public void fight(Vilao v){
-        // implementar
+        Random rand = new Random();
+        while(v.getEnergy() > 0){
+            if(v instanceof Chefe){
+                // vs chefe
+                if((rand.nextInt(9)%2) == 0){
+                    v.decreaseEnergy(calculateDamage(status, ((Chefe) v).status));
+                    // quebra itens
+                    
+                    // add no vilao os stats alterados
+                    ((Chefe) v).status = new Status(v.getMaxEnergy(), v.getEnergy(), ((Chefe) v).dropItens());
+                } else{
+                    decreaseEnergy(calculateDamage(((Chefe) v).status, status));
+                    // quebra itens
+                    
+                    // add no heroi os stats alterados
+                    status = new Status(getMaxEnergy(), getEnergy(), ((Chefe) v).dropItens());
+                }
+            } else{
+                // vs vilao normal
+                // quebra itens
+                // add no heroi os stats alterados
+            }
+        }
     }
-
+    
+    private int calculateDamage(Status winner, Status loser){
+        Random rand = new Random();
+        if(winner.isHitKillChance()){
+            if(rand.nextInt(100) < (winner.isAdditionalLuck() ? 9 : 5)){  // % hit kill
+                return Integer.MAX_VALUE;
+            }
+        }
+        int damage = (int)((winner.getDamage()*winner.getDamageMultiplier())*((rand.nextInt((int) winner.getCriticalChance())/100)+1));
+        int armor = loser.getArmor();
+        if((armor + loser.getCurrentEnergy())<= damage){
+            return damage;
+        } else{
+            return damage-armor;
+        }
+    }
+    
     private int pesoAtual() {
         int peso = 0;
         for(int i = 0; i<inventory.size(); i++){

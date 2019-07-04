@@ -16,7 +16,11 @@ public class Anel extends Item{
     public Anel(String name, int weight, boolean al, double dm) {
         super(name, weight);
         additionalLuck = al;
-        damageMultiplier = dm;
+        if(dm >= 1){
+            damageMultiplier = dm;
+        }else{
+            damageMultiplier = 1;
+        }
     }
 
     public boolean isAdditionalLuck() {

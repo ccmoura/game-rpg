@@ -15,11 +15,13 @@ import java.util.Map;
 public class Chefe extends Vilao{
     private Map<String, Item> inventory;
     private int weightLimit;
+    public Status status;
     
-    public Chefe(String nome, byte energia, int coins) {
+    public Chefe(String nome, int energia, int coins) {
         super(nome, energia, coins);
         inventory = new HashMap<String, Item>();
         weightLimit = 18;
+        status = new Status(energia, energia, inventory);
     }
     
     public Map<String, Item> dropItens(){

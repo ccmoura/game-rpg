@@ -11,10 +11,10 @@ package jogorpg.world_of_zuul;
  */
 public class Cajado extends Item{
     private int damage;
-    private double criticalChance;
+    private byte criticalChance;
     private boolean hitKillChance;
     
-    public Cajado(String name, int weight, int damage, double cc, boolean hk) {
+    public Cajado(String name, int weight, int damage, byte cc, boolean hk) {
         super(name, weight);
         this.damage = damage;
         criticalChance = cc;
@@ -25,7 +25,7 @@ public class Cajado extends Item{
         return damage;
     }
 
-    public double getCriticalChance() {
+    public byte getCriticalChance() {
         return criticalChance;
     }
 

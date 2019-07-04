@@ -13,10 +13,10 @@ import java.util.Random;
  */
 public abstract class Personagem {
     private String name;
-    private byte maxEnergy;
-    private byte currentEnergy;
+    private int maxEnergy;
+    private int currentEnergy;
     
-    public Personagem(String nome, byte energia) {
+    public Personagem(String nome, int energia) {
         this.name = nome;
         this.maxEnergy = energia;
     }
@@ -25,7 +25,7 @@ public abstract class Personagem {
         this.maxEnergy = maxEnergy;
     }
 
-    public byte getMaxEnergy() {
+    public int getMaxEnergy() {
         return maxEnergy;
     }
     
@@ -33,7 +33,7 @@ public abstract class Personagem {
         return name;
     }
 
-    public byte getEnergy() {
+    public int getEnergy() {
         return currentEnergy;
     }
      
@@ -42,23 +42,23 @@ public abstract class Personagem {
         return (byte) random.nextInt(6);
     }
     
-    public void increaseEnergy(){
-        if(currentEnergy < 10)
-            currentEnergy++;
+    public void increaseEnergy(int total){
+        currentEnergy+=total;
+        if(currentEnergy > maxEnergy) currentEnergy = maxEnergy;
     }
     
-    public void decreaseEnergy(){
-        if(currentEnergy > 0){
-            currentEnergy--;
-        } 
-        if(currentEnergy == 0){
+    public void decreaseEnergy(int total){
+        currentEnergy -= total;
+        if(currentEnergy > -1){
+            currentEnergy = 0;
+        } else{
             System.out.println(name + " is dead");
         }
     }
     
-    public void feed(){
-        increaseEnergy();
-        increaseEnergy();
+    public void feed(int total){
+        increaseEnergy(total);
+        increaseEnergy(total);
     }
     
     public void print(){

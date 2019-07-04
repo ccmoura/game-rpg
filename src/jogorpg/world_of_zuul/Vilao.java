@@ -12,7 +12,7 @@ package jogorpg.world_of_zuul;
 public class Vilao extends Personagem{
     private int coins;
     
-    public Vilao(String nome, byte energia, int coins) {
+    public Vilao(String nome, int energia, int coins) {
         super(nome, energia);
         this.coins = coins;
     }
