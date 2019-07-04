@@ -21,7 +21,7 @@ public class Status {
     private byte criticalChance;
     private boolean hitKillChance;
 
-    public Status(int maxEnergy, int currentEnergy, Map<String, Item> inventory) {
+    public Status(int maxEnergy, int currentEnergy, Map<String, Item> inventory, int baseDamage) {
         this.maxEnergy = maxEnergy;
         this.currentEnergy = currentEnergy;
         
@@ -37,6 +37,7 @@ public class Status {
                 damageMultiplier = ((Anel) item).getDamageMultiplier();
             }
         }
+        damage += baseDamage;
     }
 
     public int getMaxEnergy() {

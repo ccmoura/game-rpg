@@ -21,7 +21,7 @@ public class Chefe extends Vilao{
         super(nome, energia, coins);
         inventory = new HashMap<String, Item>();
         weightLimit = 18;
-        status = new Status(energia, energia, inventory);
+        status = new Status(energia, energia, inventory, getBaseDamage());
     }
     
     public Map<String, Item> dropItens(){
@@ -32,5 +32,13 @@ public class Chefe extends Vilao{
         return weightLimit;
     }
     
-    
+    public void addItem(Item k){
+        int peso = 0;
+        for(Item x : inventory.values()){
+            peso+=x.getWeight();
+        }
+        if(weightLimit-peso < k.getWeight()){
+            inventory.put(k.getName(), k);
+        }
+    }
 }

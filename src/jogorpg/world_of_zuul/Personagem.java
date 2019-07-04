@@ -14,7 +14,24 @@ import java.util.Random;
 public abstract class Personagem {
     private String name;
     private int maxEnergy;
+    private int baseDamage;
     private int currentEnergy;
+
+    public int getBaseDamage() {
+        return baseDamage;
+    }
+
+    public void setBaseDamage(int baseDamage) {
+        this.baseDamage = baseDamage;
+    }
+
+    public int getCurrentEnergy() {
+        return currentEnergy;
+    }
+
+    public void setCurrentEnergy(int currentEnergy) {
+        this.currentEnergy = currentEnergy;
+    }
     
     public Personagem(String nome, int energia) {
         this.name = nome;

@@ -19,13 +19,13 @@ public class Heroi extends Personagem {
     private Wallet wallet;
     private Status status;
     
-    public Heroi(String nome, byte energia) {
+    public Heroi(String nome, int energia) {
         super(nome, energia);
         inventory = new HashMap<String, Item>();
         weightLimit = 30;
         wallet = new Wallet();
         inventory.put("Wallet", wallet);
-        status = new Status(super.getMaxEnergy(), super.getEnergy(), inventory);
+        status = new Status(super.getMaxEnergy(), super.getEnergy(), inventory, getBaseDamage());
     }
     
     public void colectCoins(int moedas){
@@ -70,18 +70,25 @@ public class Heroi extends Personagem {
                     // quebra itens
                     
                     // add no vilao os stats alterados
-                    ((Chefe) v).status = new Status(v.getMaxEnergy(), v.getEnergy(), ((Chefe) v).dropItens());
+                    ((Chefe) v).status = new Status(v.getMaxEnergy(), v.getEnergy(), ((Chefe) v).dropItens(), v.getBaseDamage());
                 } else{
                     decreaseEnergy(calculateDamage(((Chefe) v).status, status));
                     // quebra itens
-                    
                     // add no heroi os stats alterados
-                    status = new Status(getMaxEnergy(), getEnergy(), ((Chefe) v).dropItens());
+                    status = new Status(getMaxEnergy(), getEnergy(), inventory, getBaseDamage());
                 }
             } else{
                 // vs vilao normal
-                // quebra itens
-                // add no heroi os stats alterados
+                if((rand.nextInt(9)%2) == 0){
+                    v.decreaseEnergy(getBaseDamage()+status.getDamage());
+                    // quebra itens
+                    
+                } else{
+                    decreaseEnergy(v.getBaseDamage());
+                    // quebra itens
+                    // add no heroi os stats alterados
+                    status = new Status(getMaxEnergy(), getEnergy(), inventory, getBaseDamage());
+                }
             }
         }
     }
@@ -90,7 +97,7 @@ public class Heroi extends Personagem {
         Random rand = new Random();
         if(winner.isHitKillChance()){
             if(rand.nextInt(100) < (winner.isAdditionalLuck() ? 9 : 5)){  // % hit kill
-                return Integer.MAX_VALUE;
+                return loser.getCurrentEnergy();
             }
         }
         int damage = (int)((winner.getDamage()*winner.getDamageMultiplier())*((rand.nextInt((int) winner.getCriticalChance())/100)+1));

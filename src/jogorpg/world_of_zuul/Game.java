@@ -21,7 +21,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-    private Heroi heroi = new Heroi("Anonimo", (byte)2500);
+    private Heroi heroi = new Heroi("Anonimo", 2500);
         
     /**
      * Create the game and initialise its internal map.
@@ -109,9 +109,10 @@ public class Game
         
         
         // add characters in each room
-        posto.setCharacter("Aldenei", new Chefe("Aldenei", (byte)3200, 450));
-        posto.setCharacter("Frentista", new Vilao("Gasoline man", (byte)1005, 3000));
-                
+        posto.setCharacter("Aldenei", new Chefe("Aldenei", 3200, 450));
+        posto.setCharacter("Frentista", new Vilao("Frentista", 1005, 3000));
+        
+        alfredo.setCharacter("Hamilton", new Vilao("Hamilton", 1250, 50));
         // add items in each room
         
         
@@ -133,6 +134,8 @@ public class Game
         while (! finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
+            System.out.println(currentRoom.getLongDescription());
+            System.out.println();
         }
         System.out.println("Até a próxima!");
     }
@@ -251,6 +254,9 @@ public class Game
             heroi.fight(vilao);
             if(vilao.getEnergy() == 0){
                 currentRoom.removeCharacter(vilao);
+                System.out.println("You win!");
+            } else{
+                System.out.println("You lose...\nGame Over.");
             }
         }
     }

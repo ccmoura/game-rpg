@@ -9,10 +9,10 @@ package jogorpg.world_of_zuul;
  *
  * @author chris
  */
-public class Item {
+public abstract class Item {
     private String name;
     private int weight;
-    private byte durability;
+    private int durability;
 
     public Item(String name, int weight) {
         this.name = name;
@@ -20,11 +20,11 @@ public class Item {
         durability = 100;
     }
 
-    public byte getDurability() {
+    public int getDurability() {
         return durability;
     }
 
-    public void setDurability(byte durability) {
+    public void setDurability(int durability) {
         this.durability -= durability;
         if(this.durability < 0) this.durability = 0;
     }
