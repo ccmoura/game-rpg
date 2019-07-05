@@ -5,6 +5,9 @@
  */
 package jogorpg.world_of_zuul;
 
+import Personagens.Vilao;
+import Personagens.Heroi;
+
 /**
  *
  * @author chris

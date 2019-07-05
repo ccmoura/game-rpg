@@ -3,8 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jogorpg.world_of_zuul;
+package Personagens.Utilitarios;
 
+import Itens.Item;
+import Itens.Anel;
+import Itens.Camisa;
+import Itens.Cajado;
 import java.util.Map;
 
 /**

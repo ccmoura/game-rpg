@@ -3,22 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jogorpg.world_of_zuul;
+package Itens;
 
 /**
  *
  * @author chris
  */
-public class Camisa extends Item{
-    private int armor;
+public class Churros extends Item {
+    private double extraLife;
     
-    public Camisa(String name, int weight, int armor) {
+    public Churros(String name, int weight) {
         super(name, weight);
-        this.armor = armor;
+        extraLife = 1.35;
     }
 
-    public int getArmor() {
-        return armor;
+    public double getExtraLife() {
+        return extraLife;
     }
     
 }

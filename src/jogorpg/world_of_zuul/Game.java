@@ -1,5 +1,11 @@
 package jogorpg.world_of_zuul;
 
+import Personagens.Vilao;
+import Personagens.Heroi;
+import Personagens.Chefe;
+import Itens.Bebida;
+import Personagens.NPC;
+
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -115,10 +121,10 @@ public class Game
         
         alfredo.setCharacter("Hamilton", new Vilao("Hamilton", 1250, 50, 100));
         // add items in each room
-        
+        alfredo.addItem(new Bebida("canha", 2, 50));
         
         // start game
-        currentRoom = alfredo;  
+        currentRoom = alfredo;
     }
 
     /**
@@ -263,6 +269,18 @@ public class Game
             } else{
                 System.out.println("You lose...\nGame Over.");
             }
+        }
+    }
+    
+    private void talk(Command command){
+       if(!command.hasSecondWord()) {
+            System.out.println("Falar com quem?");
+            return;
+        }
+        String who = command.getSecondWord();
+        NPC npc = currentRoom.getNPCS().get(who);
+        if(npc != null){
+            System.out.println(npc.getDialog());
         }
     }
     

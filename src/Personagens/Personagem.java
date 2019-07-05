@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jogorpg.world_of_zuul;
+package Personagens;
 
 import java.util.Random;
 

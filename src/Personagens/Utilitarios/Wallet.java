@@ -1,5 +1,6 @@
-package jogorpg.world_of_zuul;
+package Personagens.Utilitarios;
 
+import Itens.Item;
 import java.util.Map;
 
 /*

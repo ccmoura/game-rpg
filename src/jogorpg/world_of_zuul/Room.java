@@ -1,5 +1,8 @@
 package jogorpg.world_of_zuul;
 
+import Personagens.Personagem;
+import Itens.Item;
+import Personagens.NPC;
 import java.util.Set;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,6 +27,7 @@ public class Room
     private HashMap<String, Room> exits;        // stores exits of this room.
     private HashMap<String, Personagem> characters;
     private HashMap<String, Item> itens;
+    private HashMap<String, NPC> npcs;
 
     /**
      * Create a room described "description". Initially, it has
@@ -56,8 +60,13 @@ public class Room
         this.description = description;
         exits = new HashMap<String, Room>();
         characters = new HashMap<String, Personagem>();
+        itens = new HashMap<String, Item>();
+        npcs = new HashMap<String, NPC>();
     }
 
+    public HashMap<String, NPC> getNPCS(){
+        return npcs;
+    }
     /**
      * Define an exit from this room.
      * @param direction The direction of the exit.
