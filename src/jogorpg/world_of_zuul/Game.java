@@ -1,5 +1,6 @@
 package jogorpg.world_of_zuul;
 
+import Itens.Anel;
 import Personagens.Vilao;
 import Personagens.Heroi;
 import Personagens.Chefe;
@@ -122,6 +123,8 @@ public class Game
         alfredo.setCharacter("Hamilton", new Vilao("Hamilton", 1250, 50, 100));
         // add items in each room
         alfredo.addItem(new Bebida("canha", 2, 50));
+        
+        pisca.addItem(new Anel("Aliança do pisca", 3, false, 1.1));
         
         // start game
         currentRoom = alfredo;
@@ -290,7 +293,7 @@ public class Game
             return;
         }
         String what = command.getSecondWord();
-        currentRoom.removeItem(what);
+        heroi.inserir(currentRoom.removeItem(what));
     }
     
     private void drop(Command command){
