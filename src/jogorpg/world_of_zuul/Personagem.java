@@ -33,9 +33,11 @@ public abstract class Personagem {
         this.currentEnergy = currentEnergy;
     }
     
-    public Personagem(String nome, int energia) {
+    public Personagem(String nome, int energia, int d) {
         this.name = nome;
         this.maxEnergy = energia;
+        currentEnergy = energia;
+        baseDamage = d;
     }
 
     public void setMaxEnergy(byte maxEnergy) {
@@ -66,11 +68,10 @@ public abstract class Personagem {
     
     public void decreaseEnergy(int total){
         currentEnergy -= total;
-        if(currentEnergy > -1){
+        if(currentEnergy < 0){
             currentEnergy = 0;
-        } else{
-            System.out.println(name + " is dead");
         }
+        if(currentEnergy == 0) System.out.println(name + " is dead");
     }
     
     public void feed(int total){

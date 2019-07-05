@@ -19,8 +19,8 @@ public class Heroi extends Personagem {
     private Wallet wallet;
     private Status status;
     
-    public Heroi(String nome, int energia) {
-        super(nome, energia);
+    public Heroi(String nome, int energia, int d) {
+        super(nome, energia, d);
         inventory = new HashMap<String, Item>();
         weightLimit = 30;
         wallet = new Wallet();
@@ -62,7 +62,7 @@ public class Heroi extends Personagem {
     
     public void fight(Vilao v){
         Random rand = new Random();
-        while(v.getEnergy() > 0){
+        while((v.getEnergy() != 0) && getEnergy()!=0){
             if(v instanceof Chefe){
                 // vs chefe
                 if((rand.nextInt(9)%2) == 0){
@@ -80,9 +80,9 @@ public class Heroi extends Personagem {
             } else{
                 // vs vilao normal
                 if((rand.nextInt(9)%2) == 0){
-                    v.decreaseEnergy(getBaseDamage()+status.getDamage());
+                    v.decreaseEnergy((int) (getBaseDamage()*status.getDamageMultiplier()));
+                    System.out.println("asudhasu: " + (getBaseDamage()*status.getDamageMultiplier()));
                     // quebra itens
-                    
                 } else{
                     decreaseEnergy(v.getBaseDamage());
                     // quebra itens

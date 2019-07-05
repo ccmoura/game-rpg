@@ -49,7 +49,7 @@ public class Room
         return itens.remove(nome);
     }
     
-    public void removeCharacter(Personagem p){
+    public void removeCharacter(Vilao p){
         characters.remove(p);
     }
     

@@ -21,7 +21,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-    private Heroi heroi = new Heroi("Anonimo", 2500);
+    private Heroi heroi = new Heroi("Anonimo", 2500, 159);
         
     /**
      * Create the game and initialise its internal map.
@@ -109,10 +109,10 @@ public class Game
         
         
         // add characters in each room
-        posto.setCharacter("Aldenei", new Chefe("Aldenei", 3200, 450));
-        posto.setCharacter("Frentista", new Vilao("Frentista", 1005, 3000));
+        posto.setCharacter("Aldenei", new Chefe("Aldenei", 3200, 450, 190));
+        posto.setCharacter("Frentista", new Vilao("Frentista", 1005, 3000, 100));
         
-        alfredo.setCharacter("Hamilton", new Vilao("Hamilton", 1250, 50));
+        alfredo.setCharacter("Hamilton", new Vilao("Hamilton", 1250, 50, 100));
         // add items in each room
         
         
@@ -126,16 +126,21 @@ public class Game
     public void play() 
     {            
         printWelcome();
+        System.out.println("\nYour energy: " + heroi.getEnergy() + " / " + heroi.getMaxEnergy());
 
         // Enter the main command loop.  Here we repeatedly read commands and
         // execute them until the game is over.
                 
         boolean finished = false;
         while (! finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
-            System.out.println(currentRoom.getLongDescription());
-            System.out.println();
+            if(heroi.getCurrentEnergy() != 0){
+                Command command = parser.getCommand();
+                finished = processCommand(command);
+                System.out.println(currentRoom.getLongDescription());
+                System.out.println("\nYour energy: " + heroi.getEnergy() + " / " + heroi.getMaxEnergy());
+            } else{
+                finished = true;
+            }
         }
         System.out.println("Até a próxima!");
     }

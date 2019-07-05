@@ -37,6 +37,7 @@ public class Status {
                 damageMultiplier = ((Anel) item).getDamageMultiplier();
             }
         }
+        if(damageMultiplier == 0) damageMultiplier = 1;
         damage += baseDamage;
     }
 
@@ -102,6 +103,11 @@ public class Status {
 
     public void setHitKillChance(boolean hitKillChance) {
         this.hitKillChance = hitKillChance;
+    }
+
+    @Override
+    public String toString() {
+        return "Status{" + "maxEnergy=" + maxEnergy + ", currentEnergy=" + currentEnergy + ", additionalLuck=" + additionalLuck + ", damageMultiplier=" + damageMultiplier + ", armor=" + armor + ", damage=" + damage + ", criticalChance=" + criticalChance + ", hitKillChance=" + hitKillChance + '}';
     }
     
     
