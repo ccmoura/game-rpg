@@ -99,7 +99,8 @@ public class Heroi extends Personagem {
                 return loser.getCurrentEnergy();
             }
         }
-        int damage = (int)((winner.getDamage()*winner.getDamageMultiplier())*((rand.nextInt((int) winner.getCriticalChance())/100)+1));
+        int damage = (int)((winner.getDamage()*winner.getDamageMultiplier())*
+                ((rand.nextInt(99))) >= winner.getCriticalChance() ? 2 : 1);
         int armor = loser.getArmor();
         if((armor + loser.getCurrentEnergy())<= damage){
             return damage;

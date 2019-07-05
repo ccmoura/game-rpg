@@ -18,7 +18,7 @@ public class Status {
     private double damageMultiplier;
     private int armor;
     private int damage;
-    private byte criticalChance;
+    private int criticalChance;
     private boolean hitKillChance;
 
     public Status(int maxEnergy, int currentEnergy, Map<String, Item> inventory, int baseDamage) {
@@ -38,6 +38,7 @@ public class Status {
             }
         }
         if(damageMultiplier == 0) damageMultiplier = 1;
+        if(criticalChance == 0) criticalChance = 1;
         damage += baseDamage;
     }
 

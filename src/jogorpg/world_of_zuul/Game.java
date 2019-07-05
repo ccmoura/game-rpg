@@ -101,7 +101,7 @@ public class Game
         
         porta.setExit("gauchao", gauchao);
         
-        praca.setExit("alfredo", praca);
+        praca.setExit("alfredo", alfredo);
         praca.setExit("canidia", canidia);
         
         posto.setExit("churros", churros);
@@ -109,8 +109,9 @@ public class Game
         
         
         // add characters in each room
-        posto.setCharacter("Aldenei", new Chefe("Aldenei", 3200, 450, 190));
+        posto.setCharacter("Aldenei", new Chefe("Aldenei", 1500, 450, 190));
         posto.setCharacter("Frentista", new Vilao("Frentista", 1005, 3000, 100));
+        posto.setCharacter("Caqui", new Vilao("Caqui", 2366, 102, 200));
         
         alfredo.setCharacter("Hamilton", new Vilao("Hamilton", 1250, 50, 100));
         // add items in each room
@@ -136,7 +137,6 @@ public class Game
             if(heroi.getCurrentEnergy() != 0){
                 Command command = parser.getCommand();
                 finished = processCommand(command);
-                System.out.println(currentRoom.getLongDescription());
                 System.out.println("\nYour energy: " + heroi.getEnergy() + " / " + heroi.getMaxEnergy());
             } else{
                 finished = true;
