@@ -258,7 +258,7 @@ public class Game
         if(vilao != null){
             heroi.fight(vilao);
             if(vilao.getEnergy() == 0){
-                currentRoom.removeCharacter(vilao);
+                currentRoom.removeCharacter(vilao.getName());
                 System.out.println("You win!");
             } else{
                 System.out.println("You lose...\nGame Over.");

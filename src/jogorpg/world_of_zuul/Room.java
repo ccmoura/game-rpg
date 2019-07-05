@@ -35,7 +35,6 @@ public class Room
     public void setCharacter(String name, Personagem p){
         characters.put(name, p);
     }
-    
     public HashMap<String, Personagem> getCharacters() 
     {
         return characters;
@@ -49,7 +48,7 @@ public class Room
         return itens.remove(nome);
     }
     
-    public void removeCharacter(Vilao p){
+    public void removeCharacter(String p){
         characters.remove(p);
     }
     

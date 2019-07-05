@@ -81,7 +81,6 @@ public class Heroi extends Personagem {
                 // vs vilao normal
                 if((rand.nextInt(9)%2) == 0){
                     v.decreaseEnergy((int) (getBaseDamage()*status.getDamageMultiplier()));
-                    System.out.println("asudhasu: " + (getBaseDamage()*status.getDamageMultiplier()));
                     // quebra itens
                 } else{
                     decreaseEnergy(v.getBaseDamage());
