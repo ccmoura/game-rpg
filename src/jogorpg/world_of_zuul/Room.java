@@ -39,6 +39,9 @@ public class Room
     public void setCharacter(String name, Personagem p){
         characters.put(name, p);
     }
+    public void setNPC(String name, NPC p){
+        npcs.put(name, p);
+    }
     public HashMap<String, Personagem> getCharacters() 
     {
         return characters;
@@ -94,7 +97,7 @@ public class Room
      */
     public String getLongDescription()
     {
-        return "Você está " + description + ".\n" + getExitString() + "\n" + getCharactersString();
+        return "Você está " + description + "\n" + getItensString() + ".\n" + getExitString() + "\n" + getCharactersString() + getNPCSString();
     }
 
     /**
@@ -117,6 +120,23 @@ public class Room
         Set<String> keys = characters.keySet();
         for(String character : keys) {
             returnString += " _ " + character;
+        }
+        return returnString;
+    }
+    private String getNPCSString(){
+        String returnString = "";
+        Set<String> keys = npcs.keySet();
+        for(String npc : keys) {
+            returnString += " _ " + npc;
+        }
+        return returnString;
+    }
+    
+    private String getItensString(){
+        String returnString = "Itens: ";
+        Set<String> keys = itens.keySet();
+        for(String item : keys) {
+            returnString += "[" + item + "] ";
         }
         return returnString;
     }

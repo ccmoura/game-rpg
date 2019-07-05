@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import Personagens.Utilitarios.Status;
-import Personagens.Utilitarios.Wallet;
+import Itens.Wallet;
 
 /**
  *
@@ -119,4 +119,10 @@ public class Heroi extends Personagem {
         }
         return peso;
     }
+
+    public Map<String, Item> getInventory() {
+        return inventory;
+    }
+    
+    
 }

@@ -5,6 +5,7 @@ import Personagens.Vilao;
 import Personagens.Heroi;
 import Personagens.Chefe;
 import Itens.Bebida;
+import Itens.Item;
 import Personagens.NPC;
 
 /**
@@ -121,6 +122,8 @@ public class Game
         posto.setCharacter("Caqui", new Vilao("Caqui", 2366, 102, 200));
         
         alfredo.setCharacter("Hamilton", new Vilao("Hamilton", 1250, 50, 100));
+        
+        churros.setNPC("Maiquinho", new NPC("Maiquinho", "E ae, vais querer um churros?"));
         // add items in each room
         alfredo.addItem(new Bebida("canha", 2, 50));
         
@@ -193,6 +196,14 @@ public class Game
             wantToQuit = quit(command);
         }else if (commandWord == CommandWord.ATTACK) {
             attack(command);
+        }else if (commandWord == CommandWord.PICK) {
+            pick(command);
+        }else if (commandWord == CommandWord.DROP) {
+            drop(command);
+        }else if (commandWord == CommandWord.TALK) {
+            talk(command);
+        }else if (commandWord == CommandWord.INVENTORY) {
+            inventory(command);
         }
         // else command not recognised.
         return wantToQuit;
@@ -286,7 +297,11 @@ public class Game
             System.out.println(npc.getDialog());
         }
     }
-    
+    private void inventory(Command command){
+        for(Item x : heroi.getInventory().values()){
+            System.out.print("[" + x.getName() + "/" + x.getDurability() +"] ");
+        }
+    }
     private void pick(Command command){
         if(!command.hasSecondWord()) {
             System.out.println("Pegar o que?");

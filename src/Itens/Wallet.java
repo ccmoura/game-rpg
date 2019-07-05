@@ -1,4 +1,4 @@
-package Personagens.Utilitarios;
+package Itens;
 
 import Itens.Item;
 import java.util.Map;
