@@ -11,10 +11,10 @@ package Itens;
  */
 public class Cajado extends Item{
     private int damage;
-    private byte criticalChance;
+    private int criticalChance;
     private boolean hitKillChance;
     
-    public Cajado(String name, int weight, int damage, byte cc, boolean hk) {
+    public Cajado(String name, int weight, int damage, int cc, boolean hk) {
         super(name, weight);
         this.damage = damage;
         criticalChance = cc;
@@ -25,7 +25,7 @@ public class Cajado extends Item{
         return damage;
     }
 
-    public byte getCriticalChance() {
+    public int getCriticalChance() {
         return criticalChance;
     }
 

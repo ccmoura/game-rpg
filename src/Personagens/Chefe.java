@@ -21,9 +21,9 @@ public class Chefe extends Vilao{
     private int weightLimit;
     public Status status;
     
-    public Chefe(String nome, int energia, int coins, int d) {
+    public Chefe(String nome, int energia, int coins, int d, Map<String, Item> i) {
         super(nome, energia, coins, d);
-        inventory = new HashMap<String, Item>();
+        inventory = i;
         weightLimit = 18;
         status = new Status(energia, energia, inventory, getBaseDamage());
     }

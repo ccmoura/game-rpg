@@ -103,7 +103,7 @@ public class Heroi extends Personagem {
             }
         }
         int damage = (int)((winner.getDamage()*winner.getDamageMultiplier())*
-                ((rand.nextInt(99))) >= winner.getCriticalChance() ? 2 : 1);
+                ((rand.nextInt(99))) <= winner.getCriticalChance() ? 2 : 1);
         int armor = loser.getArmor();
         if((armor + loser.getCurrentEnergy())<= damage){
             return damage;

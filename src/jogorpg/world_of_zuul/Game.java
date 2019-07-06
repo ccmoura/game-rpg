@@ -5,8 +5,11 @@ import Personagens.Vilao;
 import Personagens.Heroi;
 import Personagens.Chefe;
 import Itens.Bebida;
+import Itens.Cajado;
 import Itens.Item;
 import Personagens.NPC;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -117,17 +120,21 @@ public class Game
         
         
         // add characters in each room
-        posto.setCharacter("Aldenei", new Chefe("Aldenei", 1500, 450, 190));
+        Map<String, Item> inv = new HashMap<>();
+        posto.setCharacter("Aldenei", new Vilao("Aldenei", 1500, 450, 190));
         posto.setCharacter("Frentista", new Vilao("Frentista", 1005, 3000, 100));
         posto.setCharacter("Caqui", new Vilao("Caqui", 2366, 102, 200));
         
-        alfredo.setCharacter("Hamilton", new Vilao("Hamilton", 1250, 50, 100));
+        inv.put("Cacetete", new Cajado("Cacetete", 4, 19, 12, false));
+        alfredo.setCharacter("Hamilton", new Chefe("Hamilton", 1250, 50, 100, inv));
         
         churros.setNPC("Maiquinho", new NPC("Maiquinho", "E ae, vais querer um churros?"));
         // add items in each room
         alfredo.addItem(new Bebida("canha", 2, 50));
         
         pisca.addItem(new Anel("Aliança do pisca", 3, false, 1.1));
+        
+        
         
         // start game
         currentRoom = alfredo;
@@ -278,6 +285,11 @@ public class Game
         if(vilao != null){
             heroi.fight(vilao);
             if(vilao.getEnergy() == 0){
+                if(vilao instanceof Chefe){
+                    for(Item x : ((Chefe) vilao).dropItens().values()){
+                        currentRoom.addItem(x);
+                    }
+                }
                 currentRoom.removeCharacter(vilao.getName());
                 System.out.println("You win!");
             } else{
