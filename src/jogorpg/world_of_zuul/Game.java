@@ -134,11 +134,23 @@ public class Game
         beijinho.setNPC("Beijinho", new NPC("Beijijnho", "Pena do bolso", new Bebida("coca cola", 3, 40), 40));
         beijinho.setCharacter("Pena", new Vilao("Pena", 850, 10, 176));
         HashMap<String, Item> invBeijinho = new HashMap<>();
-        invBeijinho.put("Camisa_polo", new Camisa("Camisa polo", 2, 29));
+        invBeijinho.put("Camisa_polo", new Camisa("Camisa_polo", 2, 29));
         beijinho.setCharacter("Seu_armando", new Chefe("Seu_armando", 2000, 0, 111, invBeijinho));
         
-        beijinho.setCharacter("Marcimam", new Vilao("Marcimam", 1402, 561, 50));
-        beijinho.setCharacter("Piscabol", new Vilao("Piscabol", 900, 1000, 250));
+        pisca.setCharacter("Marcimam", new Vilao("Marcimam", 1402, 561, 50));
+        pisca.setCharacter("Piscabol", new Vilao("Piscabol", 900, 1000, 250));
+        
+        praca.setCharacter("Mangulinho", new Vilao("Mangulinho", 1900, 50, 168));
+        HashMap<String, Item> invPraca = new HashMap<>();
+        invPraca.put("Camisa_polo", new Camisa("Camisa_time", 4, 31));
+        praca.setCharacter("Seu_armando", new Chefe("Seu_armando", 2000, 0, 111, invPraca));
+        
+        HashMap<String, Item> invChrisao = new HashMap<>();
+        invChrisao.put("Camisa_polo", new Cajado("Canivete", 14, 68, 10, true));
+        praca.setCharacter("Chris", new Chefe("Chris", 3500, 1500, 90, invChrisao));
+        
+        gauchao.setCharacter("Mecanico1", new Vilao("Mecanico1", 500, 160, 200));
+        gauchao.setCharacter("Mecanico2", new Vilao("Mecanico2", 980, 10, 109));
         // add items in each room
         alfredo.addItem(new Bebida("canha", 2, 50));
         
