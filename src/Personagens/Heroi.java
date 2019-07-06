@@ -64,11 +64,16 @@ public class Heroi extends Personagem {
     }
     
     public boolean inserir(Item item){
-        if(item.getWeight() <= weightLimit - pesoAtual()){
-            inventory.put(item.getName(), item);
+        if(item instanceof Wallet){
+            wallet.setCoins(wallet.getCoins()+((Wallet) item).getCoins());
             return true;
+        } else{
+            if(item.getWeight() <= weightLimit - pesoAtual()){
+                inventory.put(item.getName(), item);
+                return true;
+            }
+            return false;
         }
-        return false;
     }
     
     public Item remover(String nome){

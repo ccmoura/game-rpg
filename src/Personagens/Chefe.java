@@ -8,6 +8,7 @@ package Personagens;
 import java.util.HashMap;
 import java.util.Map;
 import Itens.Item;
+import Itens.Wallet;
 import Personagens.Utilitarios.Status;
 import Personagens.Utilitarios.Status;
 import Personagens.Vilao;
@@ -20,9 +21,10 @@ public class Chefe extends Vilao{
     private Map<String, Item> inventory;
     private int weightLimit;
     public Status status;
+    private Wallet wallet;
     
-    public Chefe(String nome, int energia, int coins, int d, Map<String, Item> i) {
-        super(nome, energia, coins, d);
+    public Chefe(String nome, int energia, int coins, int damage, Map<String, Item> i) {
+        super(nome, energia, coins, damage);
         inventory = i;
         weightLimit = 18;
         status = new Status(energia, energia, inventory, getBaseDamage());

@@ -8,6 +8,7 @@ import Itens.Bebida;
 import Itens.Cajado;
 import Itens.Churros;
 import Itens.Item;
+import Itens.Moletom;
 import Personagens.NPC;
 import java.util.HashMap;
 import java.util.Map;
@@ -122,16 +123,18 @@ public class Game
         
         
         // add characters in each room
-        Map<String, Item> inv = new HashMap<>();
         posto.setCharacter("Aldenei", new Vilao("Aldenei", 1500, 450, 190));
         posto.setCharacter("Frentista", new Vilao("Frentista", 1005, 3000, 100));
-        posto.setCharacter("Caqui", new Vilao("Caqui", 2366, 102, 200));
+        Map<String, Item> invPosto = new HashMap<>();
+        invPosto.put("Espeto", new Cajado("Espeto", 4, 45, 10, true));
+        invPosto.put("Japona", new Moletom("Japona", 17, 66));
+        posto.setCharacter("Caqui", new Chefe("Caqui", 2366, 102, 230, invPosto));
         
-        inv.put("Cacetete", new Cajado("Cacetete", 4, 19, 12, false));
-        alfredo.setCharacter("Hamilton", new Chefe("Hamilton", 1250, 50, 100, inv));
-        inv.clear();
+        Map<String, Item> invAlfredo = new HashMap<>();
+        invAlfredo.put("Cacetete", new Cajado("Cacetete", 4, 19, 12, false));
+        alfredo.setCharacter("Hamilton", new Chefe("Hamilton", 1250, 50, 100, invAlfredo));
         
-        churros.setNPC("Maiquinho", new NPC("Maiquinho", "E ae, vais querer um churros?", new Churros("Churros", 1), 25));
+        churros.setNPC("Maiquinho", new NPC("Maiquinho", "E ae zé, vais querer um churros?", new Churros("Churros", 1), 25));
         
         beijinho.setNPC("Beijinho", new NPC("Beijijnho", "Pena do bolso", new Bebida("coca cola", 3, 40), 40));
         // add items in each room
@@ -234,6 +237,7 @@ public class Game
     {
         System.out.println("Você acordou nas margens da br 392 próximo a escola Alfredo Ferreira Rodrigues");
         System.out.println("Você não se lembra de como foi parar ai e nem conhece o local.");
+        System.out.println(currentRoom.getLongDescription());
         System.out.println();
         System.out.println("Comandos:");
         parser.showCommands();
@@ -294,6 +298,7 @@ public class Game
             if(vilao.getEnergy() == 0){
                 if(vilao instanceof Chefe){
                     for(Item x : ((Chefe) vilao).dropItens().values()){
+                        System.out.println("entrou");
                         currentRoom.addItem(x);
                     }
                 }
