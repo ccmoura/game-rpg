@@ -21,11 +21,11 @@ public class Wallet extends Item {
     }
     
     public Wallet addCoins(int coins, int weightLimit, Wallet wallet1){
-        int w = (int) Math.ceil((double)(coins+this.coins)/1000)+
-                ((double)(coins+this.coins)/1000) > 0 && ((double)(coins+this.coins)/1000) <=0.5 ? 1 : 0;
+        int w = (int) Math.ceil((double)(coins+this.coins)/1000);/*+
+                ((double)(coins+this.coins)/1000) > 0 && ((double)(coins+this.coins)/1000) <=0.5 ? 1 : 0;*/
         if(w<=weightLimit){
             wallet1.setCoins(wallet1.getCoins()+coins);
-            this.setWeight(w > this.getWeight() ? this.getWeight()+w : this.getWeight());
+            this.setWeight(w > this.getWeight() ? w : this.getWeight());
             return this;
         } else{
             System.out.println("Você não tem espaço para essa quantia.");
