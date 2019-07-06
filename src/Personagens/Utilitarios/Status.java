@@ -30,15 +30,17 @@ public class Status {
         this.currentEnergy = currentEnergy;
         
         for(Item item : inventory.values()){
-            if(item instanceof Camisa){
-                armor = ((Camisa) item).getArmor();
-            } else if(item instanceof Cajado){
-                damage = ((Cajado) item).getDamage();
-                hitKillChance = ((Cajado) item).getHitKillChance();
-                criticalChance = ((Cajado) item).getCriticalChance();
-            } else if(item instanceof Anel){
-                additionalLuck = ((Anel) item).isAdditionalLuck();
-                damageMultiplier = ((Anel) item).getDamageMultiplier();
+            if(item.getDurability() != 0){
+                if(item instanceof Camisa){
+                    armor = ((Camisa) item).getArmor();
+                } else if(item instanceof Cajado){
+                    damage = ((Cajado) item).getDamage();
+                    hitKillChance = ((Cajado) item).getHitKillChance();
+                    criticalChance = ((Cajado) item).getCriticalChance();
+                } else if(item instanceof Anel){
+                    additionalLuck = ((Anel) item).isAdditionalLuck();
+                    damageMultiplier = ((Anel) item).getDamageMultiplier();
+                }
             }
         }
         if(damageMultiplier == 0) damageMultiplier = 1;

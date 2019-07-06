@@ -17,7 +17,7 @@ import Itens.Wallet;
  * @author chris
  */
 public class Heroi extends Personagem {
-    private Map<String, Item> inventory;
+    private HashMap<String, Item> inventory;
     private int weightLimit;
     private Wallet wallet;
     private Status status;
@@ -80,18 +80,22 @@ public class Heroi extends Personagem {
                 return true;
             }
             inventory.put(item.getName(), item);
+            status = new Status(super.getMaxEnergy(), super.getEnergy(), inventory, getBaseDamage());
             return true;
         }
         return false;
     }
     
     public Item remover(String nome){
+        if(inventory.get(nome) instanceof Wallet){
         Wallet x = new Wallet();
-        x.setCoins(wallet.getCoins());
-        x.setWeight(wallet.getWeight());
-        inventory.remove(nome);
-        wallet.setCoins(0);
-        return x;
+            x.setCoins(wallet.getCoins());
+            x.setWeight(wallet.getWeight());
+            inventory.remove(nome);
+            wallet.setCoins(0);
+            return x;
+        }
+        return inventory.remove(nome);
     }
     
     public void fight(Vilao v){
@@ -102,12 +106,23 @@ public class Heroi extends Personagem {
                 if((rand.nextInt(9)%2) == 0){
                     v.decreaseEnergy(calculateDamage(status, ((Chefe) v).status));
                     // quebra itens
-                    
+                    for(Item i : ((Chefe) v).getInventory().values()){
+                        if(!(i instanceof Wallet)){
+                            i.decreaseDurability();
+                            ((Chefe) v).broke(i);
+                        }
+                    }
                     // add no vilao os stats alterados
                     ((Chefe) v).status = new Status(v.getMaxEnergy(), v.getEnergy(), ((Chefe) v).dropItens(), v.getBaseDamage());
                 } else{
                     decreaseEnergy(calculateDamage(((Chefe) v).status, status));
                     // quebra itens
+                    for(Item i : inventory.values()){
+                        if(!(i instanceof Wallet)){
+                            i.decreaseDurability();
+                            broke(i);
+                        }
+                    }
                     // add no heroi os stats alterados
                     status = new Status(getMaxEnergy(), getEnergy(), inventory, getBaseDamage());
                 }
@@ -115,10 +130,15 @@ public class Heroi extends Personagem {
                 // vs vilao normal
                 if((rand.nextInt(9)%2) == 0){
                     v.decreaseEnergy((int) (getBaseDamage()*status.getDamageMultiplier()));
-                    // quebra itens
                 } else{
                     decreaseEnergy(v.getBaseDamage());
                     // quebra itens
+                    for(Item i : inventory.values()){
+                        if(!(i instanceof Wallet)){
+                            i.decreaseDurability();
+                            broke(i);
+                        }
+                    }
                     // add no heroi os stats alterados
                     status = new Status(getMaxEnergy(), getEnergy(), inventory, getBaseDamage());
                 }
@@ -129,18 +149,22 @@ public class Heroi extends Personagem {
     private int calculateDamage(Status winner, Status loser){
         Random rand = new Random();
         if(winner.isHitKillChance()){
-            if(rand.nextInt(100) < (winner.isAdditionalLuck() ? 9 : 5)){  // % hit kill
+            if(rand.nextInt(100) < ((winner.isAdditionalLuck() ? 9 : 5))){  // % hit kill
                 return loser.getCurrentEnergy();
             }
         }
         int damage = (int)((winner.getDamage()*winner.getDamageMultiplier())*
-                ((rand.nextInt(99))) <= winner.getCriticalChance() ? 2 : 1);
+                (((rand.nextInt(99))) <= winner.getCriticalChance() ? 2 : 1));
         int armor = loser.getArmor();
         if((armor + loser.getCurrentEnergy())<= damage){
             return damage;
         } else{
             return damage-armor;
         }
+    }
+
+    public void setInventory(HashMap<String, Item> inventory) {
+        this.inventory = inventory;
     }
     
     public int pesoAtual() {
@@ -155,5 +179,7 @@ public class Heroi extends Personagem {
         return inventory;
     }
     
-    
+    void broke(Item i) {
+        inventory.put(i.getName(), i);
+    }
 }

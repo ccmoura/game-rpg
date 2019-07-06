@@ -40,6 +40,11 @@ public abstract class Item {
     public int getWeight() {
         return weight;
     }
-    
+    public void decreaseDurability(){
+        this.durability -= 1;
+        if(durability < 0){
+            durability = 0;
+        }
+    }
     
 }

@@ -16,5 +16,9 @@ public class Bebida extends Item {
         super(name, weight);
         this.maxLife = maxLife;
     }
+
+    public int getMaxLife() {
+        return maxLife;
+    }
     
 }

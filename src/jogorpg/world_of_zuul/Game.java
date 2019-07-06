@@ -6,6 +6,7 @@ import Personagens.Heroi;
 import Personagens.Chefe;
 import Itens.Bebida;
 import Itens.Cajado;
+import Itens.Camisa;
 import Itens.Churros;
 import Itens.Item;
 import Itens.Moletom;
@@ -66,7 +67,6 @@ public class Game
         praca = new Room("na praça Coronel Marcelino");
         avenida = new Room("na Avenida da Paz");
         gauchao = new Room("no Gauchão Acessórios");
-        porta = new Room("em frente a uma porta misteriosa");
         
         // initialise room exits
         alfredo.setExit("praca", praca);
@@ -98,7 +98,6 @@ public class Game
         passarela.setExit("chrisao", chrisao);
         
         gauchao.setExit("churros", churros);
-        gauchao.setExit("porta", porta);
         gauchao.setExit("avenida", avenida);
         gauchao.setExit("passarela", passarela);
         
@@ -112,8 +111,6 @@ public class Game
         canidia.setExit("praca", praca);
         canidia.setExit("pisca", pisca);
         
-        porta.setExit("gauchao", gauchao);
-        
         praca.setExit("alfredo", alfredo);
         praca.setExit("canidia", canidia);
         
@@ -124,24 +121,36 @@ public class Game
         // add characters in each room
         posto.setCharacter("Aldenei", new Vilao("Aldenei", 1500, 450, 190));
         posto.setCharacter("Frentista", new Vilao("Frentista", 1005, 3000, 100));
-        Map<String, Item> invPosto = new HashMap<>();
-        invPosto.put("Espeto", new Cajado("Espeto", 4, 45, 10, true));
-        invPosto.put("Japona", new Moletom("Japona", 17, 66));
+        HashMap<String, Item> invPosto = new HashMap<>();
+        invPosto.put("Japona", new Moletom("Japona", 17, 66, 33));
         posto.setCharacter("Caqui", new Chefe("Caqui", 2366, 102, 230, invPosto));
         
-        Map<String, Item> invAlfredo = new HashMap<>();
-        invAlfredo.put("Cacetete", new Cajado("Cacetete", 4, 19, 12, false));
+        HashMap<String, Item> invAlfredo = new HashMap<>();
+        invAlfredo.put("Cacetete", new Cajado("Cacetete", 4, 19, 120, false));
         alfredo.setCharacter("Hamilton", new Chefe("Hamilton", 1250, 3000, 100, invAlfredo));
         
         churros.setNPC("Maiquinho", new NPC("Maiquinho", "E ae zé, vais querer um churros?", new Churros("Churros", 1), 25));
         
         beijinho.setNPC("Beijinho", new NPC("Beijijnho", "Pena do bolso", new Bebida("coca cola", 3, 40), 40));
+        beijinho.setCharacter("Pena", new Vilao("Pena", 850, 10, 176));
+        HashMap<String, Item> invBeijinho = new HashMap<>();
+        invBeijinho.put("Camisa_polo", new Camisa("Camisa polo", 2, 29));
+        beijinho.setCharacter("Seu_armando", new Chefe("Seu_armando", 2000, 0, 111, invBeijinho));
+        
+        beijinho.setCharacter("Marcimam", new Vilao("Marcimam", 1402, 561, 50));
+        beijinho.setCharacter("Piscabol", new Vilao("Piscabol", 900, 1000, 250));
         // add items in each room
         alfredo.addItem(new Bebida("canha", 2, 50));
         
-        pisca.addItem(new Anel("Aliança do pisca", 3, false, 1.1));
+        pisca.addItem(new Anel("Anel_dourado", 3, false, 1.1));
         
+        canidia.addItem(new Camisa("Colete_society", 1, 14));
+        canidia.addItem(new Cajado("Trave", 16, 170 , 22, true));
         
+        avenida.addItem(new Churros("Churros_nutella", 2));
+        avenida.addItem(new Bebida("Agua", 2, 160));
+        
+        chrisao.addItem(new Moletom("Moletom_computacao", 9, 40, 34));
         
         // start game
         currentRoom = alfredo;
@@ -220,6 +229,8 @@ public class Game
             inventory(command);
         }else if(commandWord == CommandWord.BUY) {
             buy(command);
+        }else if(commandWord == CommandWord.USE) {
+            use(command);
         }
         // else command not recognised.
         return wantToQuit;
@@ -284,6 +295,27 @@ public class Game
         }
     }
 
+    public void use(Command command){
+        if(!command.hasSecondWord()) {
+            System.out.println("Comando inválido?");
+            return ;
+        }
+        String what = command.getSecondWord();
+        Item i = heroi.getInventory().get(what);
+        if(i != null && (i instanceof Bebida || i instanceof Churros)){
+            if(i instanceof Bebida){
+                heroi.setMaxEnergy(heroi.getMaxEnergy()+((Bebida) i).getMaxLife());
+                heroi.remover(what);
+            } else if(i instanceof Churros){
+                if(heroi.getCurrentEnergy() < heroi.getMaxEnergy()){
+                    heroi.setCurrentEnergy((int) (heroi.getCurrentEnergy()*((Churros) i).getExtraLife()));
+                    heroi.remover(what);
+                } else{
+                    System.out.println("Vida cheia.");
+                }
+            }
+        }
+    }
     private void attack(Command command) {
         if(!command.hasSecondWord()) {
             System.out.println("Atacar quem?");

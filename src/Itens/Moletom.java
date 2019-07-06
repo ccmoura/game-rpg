@@ -12,13 +12,14 @@ import Itens.Camisa;
  * @author chris
  */
 public class Moletom extends Camisa {
-    private byte life;
+    private int life;
     
-    public Moletom(String name, int weight, int armor) {
+    public Moletom(String name, int weight, int armor, int life) {
         super(name, weight, armor);
+        this.life = life;
     }
 
-    public byte getLife() {
+    public int getLife() {
         return life;
     }
     

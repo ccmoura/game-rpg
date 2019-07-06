@@ -40,7 +40,7 @@ public abstract class Personagem {
         baseDamage = d;
     }
 
-    public void setMaxEnergy(byte maxEnergy) {
+    public void setMaxEnergy(int maxEnergy) {
         this.maxEnergy = maxEnergy;
     }
 

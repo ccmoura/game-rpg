@@ -23,14 +23,22 @@ public class Chefe extends Vilao{
     public Status status;
     private Wallet wallet;
     
-    public Chefe(String nome, int energia, int coins, int damage, Map<String, Item> i) {
+    public Chefe(String nome, int energia, int coins, int damage, HashMap<String, Item> i) {
         super(nome, energia, coins, damage);
         inventory = i;
         weightLimit = 18;
         status = new Status(energia, energia, inventory, getBaseDamage());
     }
+
+    public void setInventory(Map<String, Item> inventory) {
+        this.inventory = inventory;
+    }
     
     public Map<String, Item> dropItens(){
+        return inventory;
+    }
+
+    public Map<String, Item> getInventory() {
         return inventory;
     }
 
@@ -46,5 +54,9 @@ public class Chefe extends Vilao{
         if(weightLimit-peso < k.getWeight()){
             inventory.put(k.getName(), k);
         }
+    }
+
+    void broke(Item i) {
+        inventory.put(i.getName(), i);
     }
 }
