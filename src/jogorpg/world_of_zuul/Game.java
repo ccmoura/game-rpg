@@ -127,6 +127,7 @@ public class Game
         
         inv.put("Cacetete", new Cajado("Cacetete", 4, 19, 12, false));
         alfredo.setCharacter("Hamilton", new Chefe("Hamilton", 1250, 50, 100, inv));
+        inv.clear();
         
         churros.setNPC("Maiquinho", new NPC("Maiquinho", "E ae, vais querer um churros?"));
         // add items in each room

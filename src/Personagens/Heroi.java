@@ -114,8 +114,8 @@ public class Heroi extends Personagem {
     
     private int pesoAtual() {
         int peso = 0;
-        for(int i = 0; i<inventory.size(); i++){
-            peso += inventory.get(i).getWeight();
+        for(Item i : inventory.values()){
+            peso += i.getWeight();
         }
         return peso;
     }
