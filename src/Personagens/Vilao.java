@@ -5,20 +5,23 @@
  */
 package Personagens;
 
+import Itens.Wallet;
+
 /**
  *
  * @author chris
  */
 public class Vilao extends Personagem{
-    private int coins;
+    private Wallet wallet;
     
     public Vilao(String nome, int energia, int coins, int d) {
         super(nome, energia, d);
-        this.coins = coins;
+        wallet = new Wallet();
+        wallet.setCoins(coins);
     }
     
-    public int dropCoins(){
-        return coins;
+    public Wallet dropCoins(){
+        return wallet;
     }
     
 }

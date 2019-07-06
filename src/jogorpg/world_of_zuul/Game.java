@@ -298,10 +298,10 @@ public class Game
             if(vilao.getEnergy() == 0){
                 if(vilao instanceof Chefe){
                     for(Item x : ((Chefe) vilao).dropItens().values()){
-                        System.out.println("entrou");
                         currentRoom.addItem(x);
                     }
                 }
+                if(vilao.dropCoins().getCoins() != 0) currentRoom.addItem(vilao.dropCoins());
                 currentRoom.removeCharacter(vilao.getName());
                 System.out.println("You win!");
             } else{
