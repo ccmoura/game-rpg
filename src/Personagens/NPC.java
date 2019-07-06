@@ -5,6 +5,7 @@
  */
 package Personagens;
 
+import Itens.Item;
 import java.util.HashMap;
 
 /**
@@ -14,6 +15,16 @@ import java.util.HashMap;
 public class NPC {
     private String name;
     private String dialog;
+    private Item item;
+    private int value;
+
+    public int getValue() {
+        return value;
+    }
+
+    public Item getItem() {
+        return item;
+    }
 
     public String getName() {
         return name;
@@ -31,8 +42,18 @@ public class NPC {
         this.dialog = dialog;
     }
 
-    public NPC(String name, String dialog) {
+    public NPC(String name, String dialog, Item item, int value) {
         this.name = name;
         this.dialog = dialog;
+        this.item = item;
+        this.value = value;
+    }
+    
+    public Item buy(){
+        return item;
+    }
+    
+    public String itemName(){
+        return item.getName();
     }
 }

@@ -27,8 +27,13 @@ public class Heroi extends Personagem {
         inventory = new HashMap<String, Item>();
         weightLimit = 30;
         wallet = new Wallet();
+        wallet.setCoins(500);
         inventory.put("Wallet", wallet);
         status = new Status(super.getMaxEnergy(), super.getEnergy(), inventory, getBaseDamage());
+    }
+
+    public Wallet getWallet() {
+        return wallet;
     }
     
     public void colectCoins(int moedas){
@@ -49,6 +54,13 @@ public class Heroi extends Personagem {
     
     public void dropCoins(int coins){
         wallet.removeCoins(coins);
+    }
+    
+    public boolean pay(int price){
+        int original = wallet.getCoins();
+        wallet.setCoins((wallet.getCoins()-price>=0) ? wallet.getCoins()-price : wallet.getCoins());
+        if(original == wallet.getCoins()) return false;
+        return true;
     }
     
     public boolean inserir(Item item){

@@ -38,4 +38,13 @@ public class Wallet extends Item {
             System.out.println("Dinheiro insuficiente.");
         }
     }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+    
 }

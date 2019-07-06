@@ -6,10 +6,12 @@ import Personagens.Heroi;
 import Personagens.Chefe;
 import Itens.Bebida;
 import Itens.Cajado;
+import Itens.Churros;
 import Itens.Item;
 import Personagens.NPC;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -129,7 +131,9 @@ public class Game
         alfredo.setCharacter("Hamilton", new Chefe("Hamilton", 1250, 50, 100, inv));
         inv.clear();
         
-        churros.setNPC("Maiquinho", new NPC("Maiquinho", "E ae, vais querer um churros?"));
+        churros.setNPC("Maiquinho", new NPC("Maiquinho", "E ae, vais querer um churros?", new Churros("Churros", 1), 25));
+        
+        beijinho.setNPC("Beijinho", new NPC("Beijijnho", "Pena do bolso", new Bebida("coca cola", 3, 40), 40));
         // add items in each room
         alfredo.addItem(new Bebida("canha", 2, 50));
         
@@ -212,6 +216,8 @@ public class Game
             talk(command);
         }else if (commandWord == CommandWord.INVENTORY) {
             inventory(command);
+        }else if(commandWord == CommandWord.BUY) {
+            buy(command);
         }
         // else command not recognised.
         return wantToQuit;
@@ -307,12 +313,33 @@ public class Game
         String who = command.getSecondWord();
         NPC npc = currentRoom.getNPCS().get(who);
         if(npc != null){
-            System.out.println(npc.getDialog());
+            System.out.println(npc.getName() + " diz: " + npc.getDialog());
+        }
+    }
+    
+    private void buy(Command command){
+       if(!command.hasSecondWord()) {
+            System.out.println("Comprar de quem?");
+            return;
+        }
+        String who = command.getSecondWord();
+        NPC npc = currentRoom.getNPCS().get(who);
+        if(npc != null){
+            if(heroi.pay(npc.getValue())) {
+                if(heroi.inserir(npc.getItem())) {
+                   System.out.println("Você comprou " + npc.itemName() + " 1x");
+                   return ;
+                }
+                heroi.colectCoins(npc.getValue());
+            } else{
+                System.out.println("Dinheiro insuficiente.");
+            }
         }
     }
     private void inventory(Command command){
+        System.out.println(heroi.getWallet().getCoins() + " coins\n");
         for(Item x : heroi.getInventory().values()){
-            System.out.print("[" + x.getName() + "/" + x.getDurability() +"] ");
+            System.out.print("[Name: " + x.getName() + "/D: " + x.getDurability() +"] ");
         }
     }
     private void pick(Command command){
