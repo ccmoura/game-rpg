@@ -36,7 +36,11 @@ public class Room
      * @param description The room's description.
      */
     
-    public void setCharacter(String name, Personagem p){
+    public HashMap<String, Item> getItens(){
+        return itens;
+    }
+
+    public void setCharacter(String name, Personagem p) {
         characters.put(name, p);
     }
     public void setNPC(String name, NPC p){
@@ -127,7 +131,7 @@ public class Room
         String returnString = "";
         Set<String> keys = npcs.keySet();
         for(String npc : keys) {
-            returnString += " _ " + npc;
+            returnString += " _ " + npc + " [NPC]";
         }
         return returnString;
     }

@@ -12,7 +12,6 @@ import Itens.Moletom;
 import Personagens.NPC;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 /**
  *  This class is the main class of the "World of Zuul" application. 
@@ -132,7 +131,7 @@ public class Game
         
         Map<String, Item> invAlfredo = new HashMap<>();
         invAlfredo.put("Cacetete", new Cajado("Cacetete", 4, 19, 12, false));
-        alfredo.setCharacter("Hamilton", new Chefe("Hamilton", 1250, 50, 100, invAlfredo));
+        alfredo.setCharacter("Hamilton", new Chefe("Hamilton", 1250, 3000, 100, invAlfredo));
         
         churros.setNPC("Maiquinho", new NPC("Maiquinho", "E ae zé, vais querer um churros?", new Churros("Churros", 1), 25));
         
@@ -342,7 +341,7 @@ public class Game
         }
     }
     private void inventory(Command command){
-        System.out.println(heroi.getWallet().getCoins() + " coins\n");
+        System.out.println("\n" + heroi.getWallet().getCoins() + " coins | Weight: " + heroi.pesoAtual() + "/" + heroi.getWeightLimit() + "\n");
         for(Item x : heroi.getInventory().values()){
             System.out.print("[Name: " + x.getName() + "/D: " + x.getDurability() +"] ");
         }
@@ -353,7 +352,8 @@ public class Game
             return;
         }
         String what = command.getSecondWord();
-        heroi.inserir(currentRoom.removeItem(what));
+        if(currentRoom.getItens().get(what) != null)
+            heroi.inserir(currentRoom.removeItem(what));
     }
     
     private void drop(Command command){
@@ -362,6 +362,8 @@ public class Game
             return;
         }
         String what = command.getSecondWord();
-        currentRoom.addItem(heroi.remover(what));
+        if(heroi.getInventory().get(what) != null){
+            currentRoom.addItem(heroi.remover(what));
+        }
     }
 }

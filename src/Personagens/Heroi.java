@@ -25,11 +25,18 @@ public class Heroi extends Personagem {
     public Heroi(String nome, int energia, int d) {
         super(nome, energia, d);
         inventory = new HashMap<String, Item>();
-        weightLimit = 30;
+        weightLimit = 23;
         wallet = new Wallet();
-        wallet.setCoins(500);
-        inventory.put("Wallet", wallet);
+        inventory.remove(wallet);
+        wallet = wallet.addCoins(500, weightLimit, wallet);
+        if(wallet.getWeight() <= weightLimit - pesoAtual()){
+            inventory.put(wallet.getName(), wallet);
+        }
         status = new Status(super.getMaxEnergy(), super.getEnergy(), inventory, getBaseDamage());
+    }
+
+    public int getWeightLimit() {
+        return weightLimit;
     }
 
     public Wallet getWallet() {
@@ -37,7 +44,8 @@ public class Heroi extends Personagem {
     }
     
     public void colectCoins(int moedas){
-        wallet.addCoins(moedas, weightLimit);
+        inventory.remove(wallet);
+        inventory.put("Coins", wallet.addCoins(moedas, weightLimit, wallet));
     }
     
     public boolean testItem(Item item){ // false se item for da mesma instância
@@ -64,20 +72,26 @@ public class Heroi extends Personagem {
     }
     
     public boolean inserir(Item item){
-        if(item instanceof Wallet){
-            wallet.setCoins(wallet.getCoins()+((Wallet) item).getCoins());
-            return true;
-        } else{
-            if(item.getWeight() <= weightLimit - pesoAtual()){
-                inventory.put(item.getName(), item);
+        if(item.getWeight() <= weightLimit - pesoAtual()){
+            if(item.getName().equals("Coins")){
+                wallet = wallet.addCoins(((Wallet)item).getCoins(), weightLimit, wallet);
+                inventory.remove(wallet);
+                inventory.put("Coins", wallet);
                 return true;
             }
-            return false;
+            inventory.put(item.getName(), item);
+            return true;
         }
+        return false;
     }
     
     public Item remover(String nome){
-        return inventory.remove(nome);
+        Wallet x = new Wallet();
+        x.setCoins(wallet.getCoins());
+        x.setWeight(wallet.getWeight());
+        inventory.remove(nome);
+        wallet.setCoins(0);
+        return x;
     }
     
     public void fight(Vilao v){
@@ -129,7 +143,7 @@ public class Heroi extends Personagem {
         }
     }
     
-    private int pesoAtual() {
+    public int pesoAtual() {
         int peso = 0;
         for(Item i : inventory.values()){
             peso += i.getWeight();
